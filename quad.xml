@@ -1,0 +1,31 @@
+<mujoco model="quad">
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="RK4"/>
+  <size nuser_body="1"/>
+
+  <worldbody>
+    <!-- Base body with free joint -->
+    <body name="base" pos="0 0 1">
+      <freejoint/>
+      <!-- Add pos attribute -->
+      <inertial pos="0 0 0" mass="1.0" diaginertia="0.02 0.02 0.04"/>
+
+      <!-- Visual cross arms -->
+      <geom type="capsule" fromto="-0.25 0 0 0.25 0 0" size="0.01" rgba="0.3 0.3 0.3 1"/>
+      <geom type="capsule" fromto="0 -0.25 0 0 0.25 0" size="0.01" rgba="0.3 0.3 0.3 1"/>
+      <geom type="box" size="0.06 0.06 0.02" rgba="0.2 0.2 0.2 1"/>
+
+      <!-- Rotor sites (body +Z is thrust axis) -->
+      <site name="rotor0" pos=" 0.20  0.20  0.0" size="0.005"/>
+      <site name="rotor1" pos="-0.20  0.20  0.0" size="0.005"/>
+      <site name="rotor2" pos="-0.20 -0.20  0.0" size="0.005"/>
+      <site name="rotor3" pos=" 0.20 -0.20  0.0" size="0.005"/>
+
+      <!-- Rigid payload mounted below base (mass set from Python) -->
+      <body name="payload" pos="0 0 -0.12">
+        <!-- Add pos attribute -->
+        <inertial pos="0 0 0" mass="0.45" diaginertia="0.001 0.001 0.001"/>
+        <geom name="payload_geom" type="box" size="0.06 0.06 0.03" rgba="0.3 0.3 0.8 1"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>
